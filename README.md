@@ -1,1 +1,6 @@
-"# Traffic_Impact_Study" 
+# Traffic Impact Study 
+
+## Contributors:
+- ### Louis Sungwoo Cho
+- ### Viktoria Lucek
+- ### Madison Lynn Anderson
