@@ -1,6 +1,4 @@
-# Traffic Impact Study 
+# Traffic Modeling
 
-## Contributors:
-- ### Louis Sungwoo Cho
-- ### Viktoria Lucek
-- ### Madison Lynn Anderson
+## Contributors
+- ### Louis Sungwoo Cho 
