@@ -4,4 +4,4 @@
 - ### Louis Sungwoo Cho 
 
 ## External Resources:
-  - [Tutorial](https://ayat.hashnode.dev/step-by-step-guide-to-simulate-a-signalized-intersection-by-python)
+  - [Tutorial](https://towardsdatascience.com/traffic-intersection-simulation-using-pygame-689d6bd7687a)
