@@ -64,9 +64,9 @@ class Vehicle(pygame.sprite.Sprite):
         path = "images/" + direction + "/" + vehicleClass + ".png"
         self.image = pygame.image.load(path)
 
-        if(len(vehicles[direction][lane])>1 and vehicles[direction][lane][self.index-1].crossed==0):    # if more than 1 vehicle in the lane of vehicle before it has crossed stop line
+        if(len(vehicles[direction][lane])>1 and vehicles[direction][lane][self.index-1].crossed==0): # if more than 1 vehicle in the lane of vehicle before it has crossed stop line
             if(direction=='right'):
-                self.stop = vehicles[direction][lane][self.index-1].stop - vehicles[direction][lane][self.index-1].image.get_rect().width - stoppingGap         # setting stop coordinate as: stop coordinate of next vehicle - width of next vehicle - gap
+                self.stop = vehicles[direction][lane][self.index-1].stop - vehicles[direction][lane][self.index-1].image.get_rect().width - stoppingGap # setting stop coordinate as: stop coordinate of next vehicle - width of next vehicle - gap
             elif(direction=='left'):
                 self.stop = vehicles[direction][lane][self.index-1].stop + vehicles[direction][lane][self.index-1].image.get_rect().width + stoppingGap
             elif(direction=='down'):
@@ -195,14 +195,14 @@ class Main:
 
     # Screensize 
     screenWidth = 1400
-    screenHeight = 800
+    screenHeight = 760
     screenSize = (screenWidth, screenHeight)
 
     # Setting background image i.e. image of intersection
     background = pygame.image.load('images/intersection.png')
 
     screen = pygame.display.set_mode(screenSize)
-    pygame.display.set_caption("SIMULATION")
+    pygame.display.set_caption("CAV Simulation")
 
     # Loading signal images and font
     redSignal = pygame.image.load('images/signals/red.png')
