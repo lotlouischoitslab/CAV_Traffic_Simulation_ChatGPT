@@ -1,4 +1,4 @@
-# Traffic Intersection Modeling
+# Louis Traffic Simulation
 
 ## Contributors
 - ### Louis Sungwoo Cho 
