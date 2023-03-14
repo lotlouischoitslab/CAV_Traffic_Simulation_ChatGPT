@@ -26,8 +26,8 @@ vehicleTypes = {0:'car', 1:'bus', 2:'truck', 3:'bike'}
 directionNumbers = {0:'right', 1:'down', 2:'left', 3:'up'}
 
 # Coordinates of signal image, timer, and vehicle count
-signalCoods = [(530,230),(810,230),(810,570),(530,570)]
-signalTimerCoods = [(530,210),(810,210),(810,550),(530,550)]
+signalCoods = [(428,111),(985,111),(985,580),(428,580)]
+signalTimerCoods = [(430,91),(985,91),(985,560),(430,560)]
 
 # Coordinates of stop lines
 stopLines = {'right': 590, 'down': 330, 'left': 800, 'up': 535}
