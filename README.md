@@ -1,4 +1,4 @@
-# Louis Traffic Simulation
+# Connected & Automated Vehicles Traffic Simulation
 
 ## Contributors
 - ### Louis Sungwoo Cho 
