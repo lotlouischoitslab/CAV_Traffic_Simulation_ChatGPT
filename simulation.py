@@ -18,21 +18,21 @@ currentYellow = 0   # Indicates whether yellow signal is on or off
 speeds = {'car':2.25, 'bus':1.8, 'truck':1.8, 'bike':2.5}  # average speeds of vehicles km/hour
 
 # Coordinates of vehicles' start
-x = {'right':[0,0,0], 'down':[755,727,697], 'left':[1400,1400,1400], 'up':[602,627,657]}    
-y = {'right':[348,370,398], 'down':[0,0,0], 'left':[498,466,436], 'up':[800,800,800]}
+x = {'right':[0,0,0], 'down':[785,841,891], 'left':[1400,1400,1400], 'up':[650,700,750]}    
+y = {'right':[245,300,350], 'down':[0,0,0], 'left':[380,440,480], 'up':[800,800,800]}
 
 vehicles = {'right': {0:[], 1:[], 2:[], 'crossed':0}, 'down': {0:[], 1:[], 2:[], 'crossed':0}, 'left': {0:[], 1:[], 2:[], 'crossed':0}, 'up': {0:[], 1:[], 2:[], 'crossed':0}}
 vehicleTypes = {0:'car', 1:'bus', 2:'truck', 3:'bike'}
 directionNumbers = {0:'right', 1:'down', 2:'left', 3:'up'}
 
 # Coordinates of signal image, timer, and vehicle count
-signalCoods = [(428,111),(985,111),(985,580),(428,580)]
-signalTimerCoods = [(430,91),(985,91),(985,560),(430,560)]
+signalCoods = [(470,130),(1033,130),(1030,620),(470,620)]
+signalTimerCoods = [(470,112),(1033,112),(1030,605),(470,605)]
 
 # Coordinates of stop lines
-stopLines = {'right': 590, 'down': 330, 'left': 985, 'up': 535}
-defaultStop = {'right': 580, 'down': 320, 'left': 985, 'up': 545}
-stops = {'right': [480,480,480], 'down': [320,320,320], 'left': [985,985,985], 'up': [545,545,545]}
+stopLines = {'right': 590, 'down': 300, 'left': 985, 'up': 535}
+defaultStop = {'right': 580, 'down': 300, 'left': 985, 'up': 535}
+stops = {'right': [480,480,480], 'down': [310,310,310], 'left': [985,985,985], 'up': [525,525,525]}
 
 # Gap between vehicles
 stoppingGap = 20    # stopping gap
