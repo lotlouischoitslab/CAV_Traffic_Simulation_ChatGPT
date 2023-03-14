@@ -5,17 +5,17 @@ import pygame
 import sys
 
 # Default values of signal timers
-defaultGreen = {0:10, 1:10, 2:10, 3:10}
-defaultRed = 150
-defaultYellow = 5
+defaultGreen = {0:10, 1:10, 2:10, 3:10} #signal timing
+defaultRed = 150 #Default red light time in seconds
+defaultYellow = 5 #Default yellow light time in seconds 
 
-signals = []
-noOfSignals = 4
+signals = [] #Signals
+noOfSignals = 4 #Number of signals 
 currentGreen = 0   # Indicates which signal is green currently
 nextGreen = (currentGreen+1)%noOfSignals    # Indicates which signal will turn green next
 currentYellow = 0   # Indicates whether yellow signal is on or off 
 
-speeds = {'car':2.25, 'bus':1.8, 'truck':1.8, 'bike':2.5}  # average speeds of vehicles
+speeds = {'car':2.25, 'bus':1.8, 'truck':1.8, 'bike':2.5}  # average speeds of vehicles km/hour
 
 # Coordinates of vehicles' start
 x = {'right':[0,0,0], 'down':[755,727,697], 'left':[1400,1400,1400], 'up':[602,627,657]}    
@@ -30,13 +30,13 @@ signalCoods = [(428,111),(985,111),(985,580),(428,580)]
 signalTimerCoods = [(430,91),(985,91),(985,560),(430,560)]
 
 # Coordinates of stop lines
-stopLines = {'right': 590, 'down': 330, 'left': 800, 'up': 535}
-defaultStop = {'right': 580, 'down': 320, 'left': 810, 'up': 545}
-# stops = {'right': [580,580,580], 'down': [320,320,320], 'left': [810,810,810], 'up': [545,545,545]}
+stopLines = {'right': 590, 'down': 330, 'left': 985, 'up': 535}
+defaultStop = {'right': 580, 'down': 320, 'left': 985, 'up': 545}
+stops = {'right': [480,480,480], 'down': [320,320,320], 'left': [985,985,985], 'up': [545,545,545]}
 
 # Gap between vehicles
-stoppingGap = 15    # stopping gap
-movingGap = 15   # moving gap
+stoppingGap = 20    # stopping gap
+movingGap = 20   # moving gap
 
 pygame.init()
 simulation = pygame.sprite.Group()
@@ -189,7 +189,7 @@ class Main:
     thread1.daemon = True
     thread1.start()
 
-    # Colours 
+    # Colors 
     black = (0, 0, 0)
     white = (255, 255, 255)
 
