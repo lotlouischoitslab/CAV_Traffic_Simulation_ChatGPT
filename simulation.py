@@ -15,7 +15,7 @@ currentGreen = 0   # Indicates which signal is green currently
 nextGreen = (currentGreen+1)%noOfSignals    # Indicates which signal will turn green next
 currentYellow = 0   # Indicates whether yellow signal is on or off 
 
-speeds = {'car':2.25, 'bus':1.8, 'truck':1.8, 'bike':2.5}  # average speeds of vehicles km/hour
+speeds = {'car':2.5, 'bus':2.3, 'truck':1.5, 'bike':3.5}  # average speeds of vehicles km/hour
 
 # Coordinates of vehicles' start
 x = {'right':[0,0,0], 'down':[785,841,891], 'left':[1400,1400,1400], 'up':[650,700,750]}    
