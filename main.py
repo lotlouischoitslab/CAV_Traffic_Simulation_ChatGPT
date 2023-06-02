@@ -44,15 +44,16 @@ def simulate():
     vehicles = pygame.sprite.Group()
 
     # Create vehicles with different colors and adjust headway
-    num_vehicles = 8
-    lane_width = WINDOW_WIDTH // (num_vehicles + 1)
-    for i in range(num_vehicles):
-        x = (i + 1) * lane_width - LANE_WIDTH // 2
-        y = random.choice([-40, WINDOW_HEIGHT])
-        speed = -1 if y > 0 else 1
-        vehicle = Vehicle(x, y, speed)
-        all_sprites.add(vehicle)
-        vehicles.add(vehicle)
+    # num_vehicles = 8
+    # lane_width = WINDOW_WIDTH // (num_vehicles + 1)
+    # for i in range(num_vehicles):
+    #     x = (i + 1) * lane_width - LANE_WIDTH // 2
+    #     y = random.choice([-40, WINDOW_HEIGHT])
+    #     speed = -1 if y > 0 else 1
+    #     vehicle = Vehicle(x, y, speed)
+    #     all_sprites.add(vehicle)
+    #     vehicles.add(vehicle)
+
 
     # Game loop
     running = True
@@ -104,5 +105,8 @@ def simulate():
 
     pygame.quit()
 
-# Run the simulation
-simulate()
+def main():
+    simulate() #Run the simulation
+
+if __name__ == '__main__':
+    main()
