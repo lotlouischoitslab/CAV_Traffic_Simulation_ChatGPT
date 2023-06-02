@@ -1,114 +1,110 @@
 import pygame
 import random
+import time
 
-# Define colors
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
+# Constants
+WINDOW_WIDTH = 800
+WINDOW_HEIGHT = 600
+LANE_WIDTH = 100
+COLORS = [(0, 0, 255), (255, 0, 0), (0, 255, 0), (255, 255, 0), (0, 0, 0)]
+SAFE_DISTANCE = 60
 
-# Define window dimensions
-WIDTH = 800
-HEIGHT = 600
-
-# Define vehicle dimensions
-VEHICLE_WIDTH = 20
-VEHICLE_HEIGHT = 40
-
-# Define road dimensions
-ROAD_WIDTH = 120
-ROAD_HEIGHT = HEIGHT
-
-# Define traffic light dimensions
-TRAFFIC_LIGHT_SIZE = 20
-
-# Define vehicle speed
-VEHICLE_SPEED = 5
-
-
+# Vehicle class
 class Vehicle(pygame.sprite.Sprite):
-    def __init__(self, x, y):
-        super().__init__()
-        self.image = pygame.Surface((VEHICLE_WIDTH, VEHICLE_HEIGHT))
-        self.image.fill(BLACK)
+    def __init__(self, x, y, speed):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((20, 40))
+        self.color = random.choice(COLORS)
+        self.image.fill(self.color)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.speed = VEHICLE_SPEED
+        self.speed = speed
 
-    def update(self):
+    def update(self, vehicles):
         self.rect.y += self.speed
+        if self.rect.y > WINDOW_HEIGHT:
+            self.rect.y = -40
 
-        # Reset vehicle position if it goes off the screen
-        if self.rect.y > HEIGHT:
-            self.rect.y = -VEHICLE_HEIGHT
+        # Check for collisions/overlaps with other vehicles
+        for vehicle in vehicles:
+            if vehicle != self and pygame.sprite.collide_rect(self, vehicle):
+                if self.rect.y < vehicle.rect.y:
+                    self.rect.y = vehicle.rect.y - SAFE_DISTANCE
+                else:
+                    self.rect.y = vehicle.rect.y + SAFE_DISTANCE
 
-
-class TrafficLight(pygame.sprite.Sprite):
-    def __init__(self, x, y):
-        super().__init__()
-        self.image = pygame.Surface((TRAFFIC_LIGHT_SIZE, TRAFFIC_LIGHT_SIZE))
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
-        self.state = random.choice(["red", "green"])
-        self.timer = random.randint(100, 300)
-
-    def update(self):
-        self.timer -= 1
-        if self.timer <= 0:
-            if self.state == "red":
-                self.state = "green"
-            else:
-                self.state = "red"
-            self.timer = random.randint(100, 300)
-
-        if self.state == "red":
-            self.image.fill(RED)
-        else:
-            self.image.fill(GREEN)
-
-
-def main():
+# Simulate function
+def simulate():
     pygame.init()
-    window = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("Traffic Simulator")
-
-    all_sprites = pygame.sprite.Group()
-
-    # Create vehicles
-    for i in range(10):
-        x = random.randint(0, WIDTH - VEHICLE_WIDTH)
-        y = random.randint(0, HEIGHT - VEHICLE_HEIGHT)
-        vehicle = Vehicle(x, y)
-        all_sprites.add(vehicle)
-
-    # Create traffic lights
-    traffic_light = TrafficLight(WIDTH // 2 - TRAFFIC_LIGHT_SIZE // 2, HEIGHT // 2 - TRAFFIC_LIGHT_SIZE // 2)
-    all_sprites.add(traffic_light)
-
+    window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     clock = pygame.time.Clock()
 
+    all_sprites = pygame.sprite.Group()
+    vehicles = pygame.sprite.Group()
+
+    # Create vehicles with different colors and adjust headway
+    for lane in range(-4, 5):
+        for i in range(4):
+            if lane < 0:
+                x = WINDOW_WIDTH // 2 - LANE_WIDTH // 2 + (lane + 1) * (LANE_WIDTH + 20)
+                y = i * 100
+                speed = random.randrange(1, 5)
+            else:
+                x = WINDOW_WIDTH // 2 + LANE_WIDTH // 2 + (lane - 1) * (LANE_WIDTH + 20)
+                y = (WINDOW_HEIGHT - 1) - i * 100
+                speed = -random.randrange(1, 5)
+            vehicle = Vehicle(x, y, speed)
+            all_sprites.add(vehicle)
+            vehicles.add(vehicle)
+            time.sleep(0.5)  # Adjust the delay here (in seconds)
+
+    # Game loop
     running = True
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
-        all_sprites.update()
+        all_sprites.update(vehicles)
 
-        window.fill(WHITE)
+        # Draw the road
+        window.fill((128, 128, 128))
 
-        # Draw road
-        pygame.draw.rect(window, BLACK, (WIDTH // 2 - ROAD_WIDTH // 2, 0, ROAD_WIDTH, ROAD_HEIGHT))
+        # Draw the yellow lines
+        line_width = 5
+        line_height = 80
+        line_spacing = 100
+
+        # Calculate the position of the center lines
+        center_line_left_x = WINDOW_WIDTH // 2 - line_width // 2 - 5
+        center_line_right_x = WINDOW_WIDTH // 2 + line_width // 2 
+
+        # Draw the left yellow line
+        pygame.draw.rect(window, (255, 255, 0), pygame.Rect(center_line_left_x - (LANE_WIDTH + 20), 0, line_width, line_height))
+        for y in range(line_spacing, WINDOW_HEIGHT - line_height, line_spacing):
+            pygame.draw.rect(window, (255, 255, 0), pygame.Rect(center_line_left_x - (LANE_WIDTH + 20), y, line_width, line_height))
+
+        # Draw the right yellow line
+        pygame.draw.rect(window, (255, 255, 0), pygame.Rect(center_line_right_x - (LANE_WIDTH + 20), 0, line_width, line_height))
+        for y in range(line_spacing, WINDOW_HEIGHT - line_height, line_spacing):
+            pygame.draw.rect(window, (255, 255, 0), pygame.Rect(center_line_right_x - (LANE_WIDTH + 20), y, line_width, line_height))
+
+        # Draw the white stripes for each lane
+        stripe_width = 10
+        stripe_height = 40
+        stripe_spacing = 100
+
+        for lane in range(-3, 4):
+            for x in range(WINDOW_WIDTH // 2 - LANE_WIDTH // 2 - (LANE_WIDTH + 20), WINDOW_WIDTH // 2 + LANE_WIDTH // 2 + (LANE_WIDTH + 20), (LANE_WIDTH + 20)):
+                for y in range(stripe_spacing // 2, WINDOW_HEIGHT, stripe_spacing):
+                    pygame.draw.rect(window, (255, 255, 255), pygame.Rect(x - stripe_width // 2, y, stripe_width, stripe_height))
 
         all_sprites.draw(window)
-
-        pygame.display.update()
+        pygame.display.flip()
         clock.tick(60)
 
     pygame.quit()
 
-
-if __name__ == "__main__":
-    main()
+# Run the simulation
+simulate()
