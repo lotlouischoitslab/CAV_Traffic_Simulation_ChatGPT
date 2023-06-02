@@ -15,8 +15,6 @@ class Vehicle(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((20, 40))
         self.color = random.choice(COLORS)
-        if self.color == (128, 128, 128):
-            self.color = (0, 0, 0)  # Replace gray with black
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
         self.rect.x = x
