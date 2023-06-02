@@ -15,6 +15,8 @@ class Vehicle(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((20, 40))
         self.color = random.choice(COLORS)
+        if self.color == (128, 128, 128):
+            self.color = (0, 0, 0)  # Replace gray with black
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -95,10 +97,10 @@ def simulate():
         stripe_height = 40
         stripe_spacing = 100
 
-        for lane in range(-3, 4):
-            for x in range(WINDOW_WIDTH // 2 - LANE_WIDTH // 2 - (LANE_WIDTH + 20), WINDOW_WIDTH // 2 + LANE_WIDTH // 2 + (LANE_WIDTH + 20), (LANE_WIDTH + 20)):
+        for lane in range(-4, 5):
+            for x in range(WINDOW_WIDTH // 2 - LANE_WIDTH // 2 - (LANE_WIDTH + 20), WINDOW_WIDTH // 2 + LANE_WIDTH // 2 + (LANE_WIDTH + 120), (LANE_WIDTH + 20)):
                 for y in range(stripe_spacing // 2, WINDOW_HEIGHT, stripe_spacing):
-                    pygame.draw.rect(window, (255, 255, 255), pygame.Rect(x - stripe_width // 2, y, stripe_width, stripe_height))
+                    pygame.draw.rect(window, (255, 255, 255), pygame.Rect(x - stripe_width // 2, y - stripe_height // 2, stripe_width, stripe_height))
 
         all_sprites.draw(window)
         pygame.display.flip()
