@@ -5,7 +5,7 @@ import time
 # Constants
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
-LANE_WIDTH = 100
+LANE_WIDTH = 80
 COLORS = [(0, 0, 255), (255, 0, 0), (0, 255, 0), (255, 255, 0), (0, 0, 0)]
 SAFE_DISTANCE = 60
 
@@ -25,8 +25,8 @@ class Vehicle(pygame.sprite.Sprite):
 
     def update(self, vehicles):
         self.rect.y += self.speed
-        if self.rect.y > WINDOW_HEIGHT:
-            self.rect.y = -40
+        if self.rect.y > WINDOW_HEIGHT or self.rect.y < -40:
+            self.rect.y = random.choice([-40, WINDOW_HEIGHT])
 
         # Check for collisions/overlaps with other vehicles
         for vehicle in vehicles:
@@ -46,20 +46,15 @@ def simulate():
     vehicles = pygame.sprite.Group()
 
     # Create vehicles with different colors and adjust headway
-    for lane in range(-4, 5):
-        for i in range(4):
-            if lane < 0:
-                x = WINDOW_WIDTH // 2 - LANE_WIDTH // 2 + (lane + 1) * (LANE_WIDTH + 20)
-                y = i * 100
-                speed = random.randrange(1, 5)
-            else:
-                x = WINDOW_WIDTH // 2 + LANE_WIDTH // 2 + (lane - 1) * (LANE_WIDTH + 20)
-                y = (WINDOW_HEIGHT - 1) - i * 100
-                speed = -random.randrange(1, 5)
-            vehicle = Vehicle(x, y, speed)
-            all_sprites.add(vehicle)
-            vehicles.add(vehicle)
-            time.sleep(0.5)  # Adjust the delay here (in seconds)
+    num_vehicles = 8
+    lane_width = WINDOW_WIDTH // (num_vehicles + 1)
+    for i in range(num_vehicles):
+        x = (i + 1) * lane_width - LANE_WIDTH // 2
+        y = random.choice([-40, WINDOW_HEIGHT])
+        speed = -1 if y > 0 else 1
+        vehicle = Vehicle(x, y, speed)
+        all_sprites.add(vehicle)
+        vehicles.add(vehicle)
 
     # Game loop
     running = True
@@ -75,22 +70,22 @@ def simulate():
 
         # Draw the yellow lines
         line_width = 5
-        line_height = 80
+        line_height = 600
         line_spacing = 100
 
         # Calculate the position of the center lines
         center_line_left_x = WINDOW_WIDTH // 2 - line_width // 2 - 5
-        center_line_right_x = WINDOW_WIDTH // 2 + line_width // 2 
+        center_line_right_x = WINDOW_WIDTH // 2 + line_width // 2
 
         # Draw the left yellow line
-        pygame.draw.rect(window, (255, 255, 0), pygame.Rect(center_line_left_x - (LANE_WIDTH + 20), 0, line_width, line_height))
+        pygame.draw.rect(window, (255, 255, 0), pygame.Rect(center_line_left_x, 0, line_width, line_height))
         for y in range(line_spacing, WINDOW_HEIGHT - line_height, line_spacing):
-            pygame.draw.rect(window, (255, 255, 0), pygame.Rect(center_line_left_x - (LANE_WIDTH + 20), y, line_width, line_height))
+            pygame.draw.rect(window, (255, 255, 0), pygame.Rect(center_line_left_x, y, line_width, line_height))
 
         # Draw the right yellow line
-        pygame.draw.rect(window, (255, 255, 0), pygame.Rect(center_line_right_x - (LANE_WIDTH + 20), 0, line_width, line_height))
+        pygame.draw.rect(window, (255, 255, 0), pygame.Rect(center_line_right_x, 0, line_width, line_height))
         for y in range(line_spacing, WINDOW_HEIGHT - line_height, line_spacing):
-            pygame.draw.rect(window, (255, 255, 0), pygame.Rect(center_line_right_x - (LANE_WIDTH + 20), y, line_width, line_height))
+            pygame.draw.rect(window, (255, 255, 0), pygame.Rect(center_line_right_x, y, line_width, line_height))
 
         # Draw the white stripes for each lane
         stripe_width = 10
@@ -98,9 +93,12 @@ def simulate():
         stripe_spacing = 100
 
         for lane in range(-4, 5):
-            for x in range(WINDOW_WIDTH // 2 - LANE_WIDTH // 2 - (LANE_WIDTH + 20), WINDOW_WIDTH // 2 + LANE_WIDTH // 2 + (LANE_WIDTH + 120), (LANE_WIDTH + 20)):
-                for y in range(stripe_spacing // 2, WINDOW_HEIGHT, stripe_spacing):
-                    pygame.draw.rect(window, (255, 255, 255), pygame.Rect(x - stripe_width // 2, y - stripe_height // 2, stripe_width, stripe_height))
+            delta = 0
+            for x in range(WINDOW_WIDTH // 2 - LANE_WIDTH // 2 - (LANE_WIDTH + 190), WINDOW_WIDTH // 2 + LANE_WIDTH // 2 + (LANE_WIDTH + 200), (LANE_WIDTH + 20)):
+                if delta != 3*(LANE_WIDTH + 20):
+                    for y in range(stripe_spacing // 2, WINDOW_HEIGHT, stripe_spacing):
+                        pygame.draw.rect(window, (255, 255, 255), pygame.Rect(x - stripe_width // 2, y - stripe_height // 2, stripe_width, stripe_height))
+                delta += (LANE_WIDTH + 20)
 
         all_sprites.draw(window)
         pygame.display.flip()
