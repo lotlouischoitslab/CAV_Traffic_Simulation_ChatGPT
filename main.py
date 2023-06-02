@@ -2,12 +2,12 @@ import pygame
 import random
 import time
 
-# Constants
-WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 600
-LANE_WIDTH = 80
+
+WINDOW_WIDTH = 800 #width
+WINDOW_HEIGHT = 600 #height
+LANE_WIDTH = 80 #lane width
 COLORS = [(0, 0, 255), (255, 0, 0), (0, 255, 0), (255, 255, 0), (0, 0, 0)]
-SAFE_DISTANCE = 60
+SAFE_DISTANCE = 60 #spacing of the vehicles
 
 # Vehicle class
 class Vehicle(pygame.sprite.Sprite):
@@ -42,7 +42,6 @@ def simulate():
 
     all_sprites = pygame.sprite.Group()
 
-
     # Game loop
     running = True
     while running:
@@ -50,7 +49,7 @@ def simulate():
             if event.type == pygame.QUIT:
                 running = False
 
-        all_sprites.update(vehicles)
+        
 
         # Draw the road
         window.fill((128, 128, 128))
@@ -61,8 +60,8 @@ def simulate():
         line_spacing = 100
 
         # Calculate the position of the center lines
-        center_line_left_x = WINDOW_WIDTH // 2 - line_width // 2 - 5
-        center_line_right_x = WINDOW_WIDTH // 2 + line_width // 2
+        center_line_left_x = WINDOW_WIDTH // 2 - line_width // 2 - 10
+        center_line_right_x = WINDOW_WIDTH // 2 + line_width // 2 - 5
 
         # Draw the left yellow line
         pygame.draw.rect(window, (255, 255, 0), pygame.Rect(center_line_left_x, 0, line_width, line_height))
