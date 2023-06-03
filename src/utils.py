@@ -22,5 +22,3 @@ class Vehicle(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.y += self.velocity
-        # if self.rect.y > WINDOW_HEIGHT or self.rect.y < -WINDOW_HEIGHT:
-        #     self.rect.y = random.choice([-WINDOW_HEIGHT, WINDOW_HEIGHT])
