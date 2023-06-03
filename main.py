@@ -62,8 +62,15 @@ def simulate():
     x = lane_width//2
 
     for lane in range(0, (num_lanes//2)):
-        y = WINDOW_HEIGHT
+        y = 0
         velocity = 100 #km/hr
+        vehicle = Vehicle(x, y, velocity)
+        all_sprites.add(vehicle)
+        x += lane_width
+    
+    for lane in range((num_lanes//2),num_lanes):
+        y = WINDOW_HEIGHT
+        velocity = -100 #km/hr
         vehicle = Vehicle(x, y, velocity)
         all_sprites.add(vehicle)
         x += lane_width
