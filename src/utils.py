@@ -7,6 +7,8 @@ WINDOW_HEIGHT = 600  # Height
 LANE_WIDTH = 80  # Lane width
 COLORS = [(0, 0, 255), (255, 0, 0), (0, 255, 0), (255, 255, 0), (0, 0, 0)]
 SAFE_DISTANCE = 6 #km Safe spacing of the vehicles
+conversion_factor = 38
+SAFE_DISTANCE = SAFE_DISTANCE*conversion_factor
 all_sprites = pygame.sprite.Group()  # Store all the agents here
 
 # Vehicle class
