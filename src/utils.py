@@ -13,39 +13,7 @@ MAX_VELOCITY = 200  # Maximum velocity in km/hr
 all_sprites = pygame.sprite.Group()  # Store all the agents here
 delta_t = 1 # hour
 
-# # Vehicle class
-# class Vehicle(pygame.sprite.Sprite):
-#     def __init__(self, x, y, velocity, acceleration, time, direction):
-#         pygame.sprite.Sprite.__init__(self)
-#         self.image = pygame.Surface((20, 40))
-#         self.color = random.choice(COLORS)
-#         self.image.fill(self.color)
-#         self.rect = self.image.get_rect()
-#         self.rect.x = x
-#         self.rect.y = y
-#         self.velocity = velocity / 60  # Convert km/hr to pixels/frame
-#         self.acceleration = acceleration / 60
-#         self.time = time
-#         self.direction = direction
-#         self.trajectory = []  # Store the trajectory data for the vehicle
-
-#     def update(self):
-#         self.velocity += self.acceleration * delta_t
-#         self.velocity = min(self.velocity, MAX_VELOCITY)
-#         self.rect.y += self.velocity * self.direction * self.time
-
-#         # Check if the vehicle is off the screen
-#         if self.direction == 1 and self.rect.y > WINDOW_HEIGHT:
-#             self.rect.y = -40
-#             self.velocity = random.randint(MIN_VELOCITY, MAX_VELOCITY) / 60  # Random velocity
-#             self.acceleration = random.randint(0, MAX_ACCELERATION) / 60  # Random acceleration
-#         elif self.direction == -1 and self.rect.y < -40:
-#             self.rect.y = WINDOW_HEIGHT
-#             self.velocity = random.randint(MIN_VELOCITY, MAX_VELOCITY) / 60  # Random velocity
-#             self.acceleration = random.randint(0, MAX_ACCELERATION) / 60  # Random acceleration
-
-#         # Add the current position to the trajectory
-#         self.trajectory.append((pygame.time.get_ticks() / 1000, self.rect.y))
+# Vehicle class
 
 class Vehicle(pygame.sprite.Sprite):
     def __init__(self, x, y, velocity, acceleration, time, direction):

@@ -141,12 +141,14 @@ def plot_trajectory(trajectory_data, title, filename):
     plt.figure()
     for trajectory in trajectory_data:
         times, positions = zip(*trajectory)
-        plt.plot(times, positions,linestyle="None",marker='.', markersize=2)
+        positions = [p/10 for p in positions]
+        plt.plot(times, positions, linestyle="None", marker='.', markersize=2)
     plt.xlabel('Time (hours)')
-    plt.ylabel('Distance from Spawning Point (pixels)')
+    plt.ylabel('Distance from Spawning Point (km)')
     plt.title(title)
     plt.savefig(filename)
     plt.show()
+
 
 def convert_to_csv(trajectory_data, filename):
     with open(filename, 'w', newline='') as csvfile:
