@@ -8,7 +8,6 @@ WINDOW_WIDTH = 800  # Width
 WINDOW_HEIGHT = 600  # Height
 LANE_WIDTH = 80  # Lane width
 COLORS = [(0, 0, 255), (255, 0, 0), (0, 255, 0), (255, 255, 0), (0, 0, 0)]
-SAFE_DISTANCE = 60  # Spacing of the vehicles
 
 # Generate road function
 def generate_road(surface):
@@ -64,7 +63,7 @@ def simulate():
 
     for lane in range(0, num_lanes // 2):
         y = random.randint(-WINDOW_HEIGHT, -60)  # Random y-axis position above the window
-        velocity = 100  # km/hr
+        velocity = random.randint(80, 120)  # Random velocity between 80 and 120 km/hr
         direction = 1  # Move down
         vehicle = Vehicle(x, y, velocity, direction)
         all_sprites.add(vehicle)
@@ -74,7 +73,7 @@ def simulate():
 
     for lane in range(num_lanes // 2, num_lanes):
         y = random.randint(-60, WINDOW_HEIGHT)  # Random y-axis position below the window
-        velocity = 100  # km/hr
+        velocity = random.randint(80, 120)  # Random velocity between 80 and 120 km/hr
         direction = -1  # Move up
         vehicle = Vehicle(x, y, velocity, direction)
         all_sprites.add(vehicle)
@@ -102,4 +101,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
