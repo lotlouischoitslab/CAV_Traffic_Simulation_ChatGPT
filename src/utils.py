@@ -10,7 +10,7 @@ SAFE_DISTANCE = 60  # Spacing of the vehicles
 
 # Vehicle class
 class Vehicle(pygame.sprite.Sprite):
-    def __init__(self, x, y, speed):
+    def __init__(self, x, y, velocity):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((20, 40))
         self.color = random.choice(COLORS)
@@ -18,9 +18,9 @@ class Vehicle(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.speed = speed
+        self.velocity = velocity/60
 
     def update(self):
-        self.rect.y += self.speed
-        if self.rect.y > WINDOW_HEIGHT or self.rect.y < -40:
-            self.rect.y = random.choice([-40, WINDOW_HEIGHT])
+        self.rect.y += self.velocity
+        if self.rect.y > WINDOW_HEIGHT or self.rect.y < -WINDOW_HEIGHT:
+            self.rect.y = random.choice([-WINDOW_HEIGHT, WINDOW_HEIGHT])

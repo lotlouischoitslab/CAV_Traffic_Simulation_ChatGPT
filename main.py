@@ -21,8 +21,8 @@ def generate_road(surface):
     line_spacing = 100
 
     # Calculate the position of the center lines
-    center_line_left_x = WINDOW_WIDTH // 2 - line_width // 2 - 10
-    center_line_right_x = WINDOW_WIDTH // 2 + line_width // 2 - 5
+    center_line_left_x = WINDOW_WIDTH // 2 - line_width // 2 
+    center_line_right_x = WINDOW_WIDTH // 2 + line_width // 2 + 5
 
     # Draw the left yellow line
     pygame.draw.rect(surface, (255, 255, 0), pygame.Rect(center_line_left_x, 0, line_width, line_height))
@@ -37,19 +37,17 @@ def generate_road(surface):
     # Draw the white stripes for each lane
     stripe_width = 10
     stripe_height = 40
-    stripe_spacing = 100
+    stripe_spacing = LANE_WIDTH
 
-    for lane in range(-4, 5):
+    for lane in range(-4, 6):
         delta = 0
-        for x in range(WINDOW_WIDTH // 2 - LANE_WIDTH // 2 - (LANE_WIDTH + 190),
-                       WINDOW_WIDTH // 2 + LANE_WIDTH // 2 + (LANE_WIDTH + 200), (LANE_WIDTH + 20)):
-            if delta != 3 * (LANE_WIDTH + 20):
+        for x in range(WINDOW_WIDTH // 2 - LANE_WIDTH // 2 - (LANE_WIDTH + 190),WINDOW_WIDTH // 2 + LANE_WIDTH // 2 + (LANE_WIDTH + 400), (LANE_WIDTH)):
+            if delta != 4 * (LANE_WIDTH ):
                 for y in range(stripe_spacing // 2, WINDOW_HEIGHT, stripe_spacing):
                     pygame.draw.rect(surface, (255, 255, 255),
                                      pygame.Rect(x - stripe_width // 2, y - stripe_height // 2, stripe_width,
                                                  stripe_height))
-            delta += (LANE_WIDTH + 20)
-
+            delta += LANE_WIDTH
 
 # Simulate function
 def simulate():
@@ -59,19 +57,16 @@ def simulate():
     all_sprites = pygame.sprite.Group() #we are going to store all the agents here 
 
     # Create vehicles
-    num_lanes = 8 
+    num_lanes = 10
     lane_width = LANE_WIDTH
-    spacing = lane_width // 4
+    x = lane_width//2
 
-    for lane in range(num_lanes):
-        x = (lane + 1) * lane_width - LANE_WIDTH // 2
-        y = random.choice([-40, WINDOW_HEIGHT])
-        speed = -1 if y > 0 else 1
-        vehicle = Vehicle(x, y, speed)
+    for lane in range(0, (num_lanes//2)):
+        y = WINDOW_HEIGHT
+        velocity = 100 #km/hr
+        vehicle = Vehicle(x, y, velocity)
         all_sprites.add(vehicle)
-        x += spacing
-        vehicle = Vehicle(x, y, speed)
-        all_sprites.add(vehicle)
+        x += lane_width
 
     # Game loop
     running = True
@@ -81,7 +76,6 @@ def simulate():
                 running = False
 
         generate_road(window)
-
         all_sprites.update()
         all_sprites.draw(window)
         pygame.display.flip()
