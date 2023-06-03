@@ -10,6 +10,7 @@ Connected & Automated Vehicles (CAV) simulator for Intelligent Transportation Sy
       git clone "https://github.com/lotlouischoitslab/CAV_Traffic_Simulation_ChatGPT"
       
    Then do this:
+   
       cd CAV_Traffic_Simulation_ChatGPT
       
    Then finally, run:
