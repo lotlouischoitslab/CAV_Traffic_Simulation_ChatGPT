@@ -61,6 +61,7 @@ def generate_road(surface):
 
 def simulate():
     pygame.init()
+    pygame.display.set_caption('CAV Traffic Simulator')
     window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     clock = pygame.time.Clock()
     all_sprites = pygame.sprite.Group()
@@ -153,7 +154,7 @@ def plot_trajectory(trajectory_data, title, filename):
 def convert_to_csv(trajectory_data, filename):
     with open(filename, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow(['Time (hours)', 'Distance from Spawning Point (pixels)'])
+        writer.writerow(['Time (hours)', 'Distance from Spawning Point (km)'])
         for trajectory in trajectory_data:
             writer.writerows(trajectory)
 
