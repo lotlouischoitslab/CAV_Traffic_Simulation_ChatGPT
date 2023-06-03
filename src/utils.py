@@ -1,19 +1,21 @@
 import pygame
 import random
-import time 
 
 WINDOW_WIDTH = 800  # Width
 WINDOW_HEIGHT = 600  # Height
 LANE_WIDTH = 80  # Lane width
 COLORS = [(0, 0, 255), (255, 0, 0), (0, 255, 0), (255, 255, 0), (0, 0, 0)]
-SAFE_DISTANCE = 6 #km Safe spacing of the vehicles
-conversion_factor = 38
-SAFE_DISTANCE = SAFE_DISTANCE*conversion_factor
+SAFE_DISTANCE = 6  # Safe spacing of the vehicles in km
+
+MAX_ACCELERATION = 2 #Max acceleration in km/hr^2
+MIN_VELOCITY = 100 # Minimum velocity in km/hr
+MAX_VELOCITY = 200  # Maximum velocity in km/hr
 all_sprites = pygame.sprite.Group()  # Store all the agents here
+delta_t = 1 # hour
 
 # Vehicle class
 class Vehicle(pygame.sprite.Sprite):
-    def __init__(self, x, y, velocity, direction):
+    def __init__(self, x, y, velocity, acceleration,time,direction):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((20, 40))
         self.color = random.choice(COLORS)
@@ -21,19 +23,25 @@ class Vehicle(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.velocity = velocity / 60  #For velocity, convert km/hr to pixels/frame
+        self.velocity = velocity / 60  # Convert km/hr to pixels/frame
+        self.acceleration = acceleration /60 
+        self.time = time
         self.direction = direction
 
     def update(self):
-        self.rect.y += self.velocity * self.direction
-        
+        self.velocity += self.acceleration*delta_t
+        self.velocity = min(self.velocity, MAX_VELOCITY)
+        self.rect.y += self.velocity * self.direction*self.time
+
         # Check if the vehicle is off the screen
         if self.direction == 1 and self.rect.y > WINDOW_HEIGHT:
             self.rect.y = -40
-            self.velocity = random.randint(110, 200) / 60  # Random velocity between 110 and 200 km/hr
+            self.velocity = random.randint(MIN_VELOCITY, MAX_VELOCITY) / 60  # Random velocity 
+            self.acceleration = random.randint(0, MAX_ACCELERATION) /60   # Random acceleration 
         elif self.direction == -1 and self.rect.y < -40:
             self.rect.y = WINDOW_HEIGHT
-            self.velocity = random.randint(110, 200) / 60  # Random velocity between 110 and 200 km/hr
+            self.velocity = random.randint(MIN_VELOCITY, MAX_VELOCITY) / 60  # Random velocity 
+            self.acceleration = random.randint(0, MAX_ACCELERATION) /60   # Random acceleration 
 
         # Check for collision with other vehicles
         for vehicle in all_sprites:
@@ -45,7 +53,11 @@ class Vehicle(pygame.sprite.Sprite):
                     # Calculate the safe distance based on the velocities
                     safe_distance = SAFE_DISTANCE * (self.velocity / vehicle.velocity)
 
-                    # Adjust the velocity if the vehicles are too close
+                    # Adjust the acceleration if the vehicles are too close
                     if distance < safe_distance:
                         if self.velocity > vehicle.velocity:
-                            self.velocity = vehicle.velocity
+                            self.acceleration = -MAX_ACCELERATION /60 
+                        else:
+                            self.acceleration = MAX_ACCELERATION /60 
+                    else:
+                        self.acceleration = 0
