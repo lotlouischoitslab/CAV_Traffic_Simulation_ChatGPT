@@ -1,4 +1,4 @@
-# Connected & Automated Vehicles Traffic Simulation using ChatGPT
+## Connected & Automated Vehicles Traffic Simulation using ChatGPT
 
 ## Contributors
 - **Louis Sungwoo Cho (조성우)**
