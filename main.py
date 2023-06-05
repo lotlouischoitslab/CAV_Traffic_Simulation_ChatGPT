@@ -91,6 +91,7 @@ def simulate():
         all_sprites.add(vehicle)
         x -= lane_width
 
+
     # Create empty lists to store the trajectory data for each vehicle
     left_lane_trajectory = [[] for _ in range(num_lanes // 2)]
     right_lane_trajectory = [[] for _ in range(num_lanes // 2)]
@@ -161,7 +162,6 @@ def convert_to_csv(trajectory_data, filename):
 
 def main():
     simulate()  # Run the traffic simulator
-    
 
 
 if __name__ == '__main__':
