@@ -16,7 +16,7 @@ MAX_ACCELERATION = 2 #Max acceleration in km/hr^2
 MIN_VELOCITY = 100 # Minimum velocity in km/hr
 MAX_VELOCITY = 200  # Maximum velocity in km/hr
 all_sprites = pygame.sprite.Group()  # Store all the agents here
-delta_t = 1 # hour
+delta_t = 1 # Time difference in hours
 vehicle_trajectories = []  # Store vehicle trajectories
 
 # Generate road function
