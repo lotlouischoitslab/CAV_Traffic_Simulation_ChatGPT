@@ -59,6 +59,7 @@ def generate_road(surface):
                                                  stripe_height))
             delta += LANE_WIDTH
 
+
 def simulate():
     pygame.init()
     pygame.display.set_caption('CAV Traffic Simulator')
@@ -137,7 +138,9 @@ def simulate():
     # Convert the files into csv respectively
     convert_to_csv(left_lane_trajectory, 'left_lane_trajectory.csv')
     convert_to_csv(right_lane_trajectory, 'right_lane_trajectory.csv')
+ 
 
+ 
 
 def plot_trajectory(trajectory_data, title, filename):
     plt.figure()
