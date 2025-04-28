@@ -17,4 +17,4 @@ Connected & Automated Vehicles (CAV) simulator for Intelligent Transportation Sy
       
       python main.py
 
-### ![Video Link](https://www.youtube.com/watch?v=VMuUVsUMxMo)
+### [Video Link](https://www.youtube.com/watch?v=VMuUVsUMxMo)
