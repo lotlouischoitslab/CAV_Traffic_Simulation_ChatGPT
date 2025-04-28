@@ -1,5 +1,4 @@
 from src.utils import Vehicle
-
 import pygame
 import random
 import numpy as np 
